@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saúde Conectada & Planejada | Extensão Universitária ADS</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        },
+                        accent: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ajustes específicos para impressão do checklist */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-checklist-area, #printable-checklist-area * {
+                visibility: visible;
+            }
+            #printable-checklist-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                color: black;
+                padding: 20px;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 transition-all shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Título -->
+                <a href="#inicio" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-accent-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-heart-pulse text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-brand-900 tracking-tight flex items-center gap-2">
+                            Saúde<span class="text-accent-600">Planejada</span>
+                        </span>
+                        <span class="text-[10px] block font-semibold text-slate-500 tracking-wider uppercase">Extensão Universitária ADS</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600">
+                    <a href="#inicio" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-slate-100 transition">Início</a>
+                    <a href="#sus-complementaridade" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-slate-100 transition">SUS & Impacto</a>
+                    <a href="#simulador" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-slate-100 transition">Simulador de Custos</a>
+                    <a href="#checklist" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-slate-100 transition">Checklist ANS</a>
+                    <a href="#glossario" class="px-3 py-2 rounded-lg hover:text-brand-600 hover:bg-slate-100 transition">Glossário</a>
+                    <a href="#questionario" class="ml-2 px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-semibold shadow-sm hover:shadow transition flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check"></i> Avaliação
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" type="button" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none" aria-label="Abrir menu">
+                    <i id="menu-icon" class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 shadow-lg">
+            <a href="#inicio" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Início</a>
+            <a href="#sus-complementaridade" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">SUS & Impacto Social</a>
+            <a href="#simulador" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Simulador de Custos</a>
+            <a href="#checklist" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Checklist da ANS</a>
+            <a href="#glossario" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 font-medium hover:bg-slate-100">Glossário Normativo</a>
+            <a href="#questionario" class="mobile-nav-link block px-3 py-2.5 rounded-lg bg-brand-700 text-white font-semibold text-center mt-2">
+                <i class="fa-solid fa-clipboard-check mr-1"></i> Formulário de Avaliação
+            </a>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="inicio" class="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 bg-gradient-to-b from-brand-50 via-white to-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-50 border border-accent-200 text-accent-700 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-accent-600 animate-pulse"></span>
+                        Alinhado à ODS 3 da ONU: Saúde e Bem-Estar
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-900 leading-tight">
+                        Letramento Financeiro em <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-accent-600">Gestão de Riscos</span> de Saúde Preventiva
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Um projeto de extensão universitária em <strong>Análise e Desenvolvimento de Sistemas (ADS)</strong> voltado a capacitar famílias e jovens a evitarem despesas médicas catastróficas, compreenderem seus direitos na saúde suplementar e fortalecerem a rede pública.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2">
+                        <a href="#simulador" class="px-6 py-3.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-semibold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calculator"></i> Simular Imprevistos
+                        </a>
+                        <a href="#checklist" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-semibold border border-slate-300 shadow-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-list-check text-brand-600"></i> Checklist Pré-Contrato
+                        </a>
+                    </div>
+                    <!-- Badges institucionais -->
+                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-medium text-slate-500 border-t border-slate-200">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-brand-600"></i> Projeto Acadêmico ADS</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced text-brand-600"></i> Base Normativa da ANS</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-globe text-accent-600"></i> Agenda 2030 (Meta 3.8)</span>
+                    </div>
+                </div>
+
+                <!-- Card Destaque Hero -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-200/80 relative">
+                        <div class="absolute -top-3 -right-3 bg-brand-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                            Educação Preventiva
+                        </div>
+                        <h2 class="text-xl font-bold text-brand-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-heart text-accent-600"></i> Por que o tema importa?
+                        </h2>
+                        <div class="space-y-4 text-sm text-slate-600">
+                            <div class="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                                <div class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Gastos Catastróficos</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Uma emergência médica imprevista pode comprometer anos de economia familiar em poucos dias de internação particular.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                                <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Opções Mais Acessíveis</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Poucos sabem que planos ambulatoriais e modalidades com coparticipação têm mensalidades muito menores e cabem no orçamento.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                                <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-users-rays"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Solidariedade Coletiva</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Quem pode aderir à saúde privada libera vagas e recursos no SUS para as famílias em real vulnerabilidade social.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SEÇÃO: SUS & COMPLEMENTARIDADE ================= -->
+    <section id="sus-complementaridade" class="py-16 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-accent-600 bg-accent-50 px-3 py-1 rounded-full border border-accent-200">
+                    Cidadania & Saúde Coletiva
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900">
+                    O SUS é Indispensável: Como a Rede Privada Ajuda o Sistema Público?
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Extensão universitária não se trata de substituir o Sistema Único de Saúde, mas de compreender como o uso responsável da <strong>saúde suplementar</strong> atua como amortecedor de sobrecarga.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Card 1 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-arrows-down-to-people"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Desafogando a Atenção Básica</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Ao realizar consultas de rotina e exames periódicos na rede particular, o cidadão que possui condições financeiras deixa a fila da Unidade Básica de Saúde (UBS) livre para quem depende exclusivamente do sistema público.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-accent-100 text-accent-700 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Prevenção Evita Colapsos de Urgência</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Doenças crônicas e agravos identificados com antecedência evitam complicações graves. Isso reduz a necessidade de intervenções emergenciais em leitos de UTI e UPAs públicas, gerando economia para o Estado.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Prevenção vs. Emergência Avulsa</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Pagar uma mensalidade ajustada cabe no planejamento mensal. Pagar uma conta particular de R$ 15.000 ou R$ 40.000 à vista por uma cirurgia de emergência quando o leito público demora destrói o patrimônio de qualquer família de classe média.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MÓDULO 1: SIMULADOR DE IMPACTO FINANCEIRO ================= -->
+    <section id="simulador" class="py-16 md:py-20 bg-slate-100/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+                    Ferramenta Interativa de ADS
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900">
+                    Simulador de Impacto Financeiro de Imprevistos Médicos
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Se você ou um familiar precisasse de atendimento particular de urgência hoje sem plano de saúde, quanto isso custaria? Selecione os procedimentos abaixo para calcular a despesa estimada.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Painel de Seleção -->
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                        <h3 class="font-bold text-slate-800 text-base sm:text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-square-check text-brand-600"></i> Selecione os Eventos Médicos
+                        </h3>
+                        <button id="btn-limpar-simulador" class="text-xs text-slate-500 hover:text-red-600 underline font-medium">Limpar seleção</button>
+                    </div>
+
+                    <div class="space-y-3" id="procedimentos-container">
+                        <!-- Itens gerados dinamicamente via JS com dados realistas da rede privada -->
+                    </div>
+
+                    <p class="text-xs text-slate-400 mt-4 italic">
+                        *Estimativas médias com base em tabelas de hospitais e clínicas particulares do Brasil (honorários, taxas de sala, diárias e insumos). Salário mínimo de referência considerado: R$ 1.621,00.
+                    </p>
+                </div>
+
+                <!-- Painel de Resultados Dinâmicos -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-gradient-to-br from-brand-900 to-brand-800 text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full pointer-events-none"></div>
+
+                        <span class="text-xs font-semibold text-brand-200 uppercase tracking-wider block mb-1">Custo Estimado da Emergência</span>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2" id="simulador-total">
+                            R$ 0,00
+                        </div>
+
+                        <div class="inline-block px-3 py-1 rounded-lg bg-white/10 text-xs text-brand-100 font-medium mb-6" id="simulador-salarios">
+                            Equivale a 0 salários mínimos
+                        </div>
+
+                        <div class="border-t border-brand-700/80 pt-4 space-y-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-brand-200 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Análise de Vulnerabilidade Orçamentária
+                            </h4>
+                            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed" id="simulador-alerta">
+                                Selecione um ou mais itens ao lado para visualizar como uma única emergência pode impactar o patrimônio familiar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Mensagem Educativa Complementar -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-800 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Como a saúde preventiva neutraliza esse risco?
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Um plano de saúde com <strong>coparticipação</strong> ou um plano <strong>ambulatorial</strong> possui custo fixo previsível, impedindo que imprevistos de saúde desestabilizem as reservas da família ou gerem endividamento bancário com juros altos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MÓDULO 2: CHECKLIST PRÉ-CONTRATO DA ANS ================= -->
+    <section id="checklist" class="py-16 md:py-20 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-accent-600 bg-accent-50 px-3 py-1 rounded-full border border-accent-200">
+                    Apoio à Decisão & Direitos
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900">
+                    Checklist Dinâmico Pré-Contrato da ANS
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Defina suas necessidades reais para que o sistema gere um guia personalizado do tipo de plano recomendado pela ANS, carências obrigatórias e cláusulas contratuais essenciais a verificar antes de assinar.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <!-- Formulário de Perfil do Usuário -->
+                <div class="lg:col-span-5 bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 space-y-6">
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-accent-600"></i> Suas Necessidades
+                    </h3>
+
+                    <!-- Pergunta 1: Tipo de atendimento -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Qual tipo de cobertura você procura?</label>
+                        <select id="filtro-cobertura" class="w-full p-3 bg-white border border-slate-300 rounded-xl text-sm font-medium text-slate-700 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <option value="ambulatorial">Consultas, Exames e Terapias (Mais econômico - Ambulatorial)</option>
+                            <option value="hospitalar_sem_obs">Consultas + Internações e Cirurgias (Hospitalar sem Obstetrícia)</option>
+                            <option value="hospitalar_com_obs">Cobertura Completa + Parto (Hospitalar com Obstetrícia)</option>
+                        </select>
+                    </div>
+
+                    <!-- Pergunta 2: Abrangência -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Abrangência Territorial</label>
+                        <select id="filtro-abrangencia" class="w-full p-3 bg-white border border-slate-300 rounded-xl text-sm font-medium text-slate-700 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <option value="municipal">Municipal / Grupo de Municípios (Mais barato para quem não viaja)</option>
+                            <option value="estadual">Estadual</option>
+                            <option value="nacional">Nacional (Recomendado apenas para quem viaja frequentemente)</option>
+                        </select>
+                    </div>
+
+                    <!-- Pergunta 3: Coparticipação -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Modalidade de Custo</label>
+                        <select id="filtro-coparticipacao" class="w-full p-3 bg-white border border-slate-300 rounded-xl text-sm font-medium text-slate-700 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <option value="com_copart">Com Coparticipação (Mensalidade até 40% menor + pequena taxa ao usar)</option>
+                            <option value="sem_copart">Sem Coparticipação (Mensalidade integral fixa)</option>
+                        </select>
+                    </div>
+
+                    <!-- Opções Adicionais -->
+                    <div class="pt-2 border-t border-slate-200 space-y-3">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Condições Específicas</label>
+                        <label class="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="checkbox" id="check-preexistente" class="w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
+                            Possuo doença ou lesão diagnosticada antes da contratação
+                        </label>
+                        <label class="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="checkbox" id="check-gravidez" class="w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
+                            Planejo gravidez ou parto nos próximos 12 meses
+                        </label>
+                    </div>
+
+                    <button id="btn-gerar-checklist" class="w-full py-3.5 bg-brand-700 hover:bg-brand-800 text-white font-semibold rounded-xl shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrows-rotate"></i> Atualizar Recomendações
+                    </button>
+                </div>
+
+                <!-- Resultado do Checklist Gerado -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div id="printable-checklist-area" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                        <!-- Cabeçalho do Resultado -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Recomendação Personalizada</span>
+                                <h3 class="text-xl font-extrabold text-slate-900" id="res-tipo-plano">Plano Ambulatorial Municipal</h3>
+                            </div>
+                            <div class="flex items-center gap-2 no-print">
+                                <button id="btn-copiar-checklist" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-semibold flex items-center gap-1.5 transition">
+                                    <i class="fa-regular fa-copy"></i> Copiar
+                                </button>
+                                <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-white hover:bg-slate-900 text-xs font-semibold flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-print"></i> Imprimir
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Carências Legais da ANS -->
+                        <div class="mt-6">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock text-brand-600"></i> Prazos Máximos de Carência (Lei 9.656/98 da ANS)
+                            </h4>
+                            <div class="grid sm:grid-cols-2 gap-3 text-xs" id="lista-carencias">
+                                <!-- Preenchido dinamicamente -->
+                            </div>
+                        </div>
+
+                        <!-- O que verificar no contrato antes de assinar -->
+                        <div class="mt-6 pt-6 border-t border-slate-200">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+                                <i class="fa-solid fa-clipboard-check text-accent-600"></i> Cláusulas Críticas a Conferir no Contrato
+                            </h4>
+                            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700" id="lista-clausulas">
+                                <!-- Preenchido dinamicamente -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MÓDULO 3: GLOSSÁRIO DINÂMICO DA ANS ================= -->
+    <section id="glossario" class="py-16 bg-slate-100/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+                    Linguagem Clara e Acessível
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900">
+                    Glossário Interativo da Saúde Suplementar
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Consulte os termos técnicos mais usados pelas operadoras de planos de saúde, traduzidos de forma direta e sem burocracia.
+                </p>
+
+                <!-- Barra de Pesquisa do Glossário -->
+                <div class="relative max-w-md mx-auto pt-2">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-5 text-slate-400 text-sm"></i>
+                    <input type="text" id="input-busca-glossario" placeholder="Buscar por termo (ex: coparticipação, carência)..." class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                </div>
+            </div>
+
+            <!-- Grade de Termos do Glossário -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" id="grid-glossario">
+                <!-- Renderizado via JavaScript -->
+            </div>
+            <div id="glossario-vazio" class="hidden text-center py-12 text-slate-500 text-sm">
+                Nenhum termo encontrado com essa palavra-chave.
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SEÇÃO: QUESTIONÁRIO / AVALIAÇÃO DE IMPACTO ================= -->
+    <section id="questionario" class="py-16 md:py-20 bg-white border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-accent-600 bg-accent-50 px-3 py-1 rounded-full border border-accent-200">
+                    Instrumento de Extensão Universitária
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900">
+                    Avaliação de Impacto e Percepção Comunitária
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Este formulário registra a evolução de percepção dos participantes da oficina presencial, gerando os indicadores acadêmicos para o relatório final de ADS.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-sm relative">
+                <!-- INTEGRAÇÃO COM FORMSPREE AQUI -->
+                <form action="https://formspree.io/f/xdeabjqr" method="POST" id="form-avaliacao" class="space-y-8">
+                    <!-- Bloco Identificação Simples -->
+                    <div class="grid sm:grid-cols-2 gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nome ou Iniciais do Participante</label>
+                            <input type="text" name="Nome_Participante" required class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Ex: Maria S.">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Faixa Etária</label>
+                            <select name="Faixa_Etaria" required class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                <option value="">Selecione...</option>
+                                <option value="18-24">18 a 24 anos</option>
+                                <option value="25-39">25 a 39 anos</option>
+                                <option value="40-59">40 a 59 anos</option>
+                                <option value="60+">60 anos ou mais</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Bloco: Diagnóstico Inicial (Antes) -->
+                    <div class="space-y-4">
+                        <span class="inline-block px-3 py-1 rounded-lg bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
+                            Fase 1: Percepção Anterior
+                        </span>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-800">1. Se surgisse uma emergência particular hoje, sua família teria condições de pagar custos de internação ou cirurgia à vista?</label>
+                            <div class="grid sm:grid-cols-3 gap-2 text-xs">
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Condicao_Pagar_Emergencia" value="Sim" required class="text-brand-600"> Sim, com facilidade
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Condicao_Pagar_Emergencia" value="Com_dificuldade" class="text-brand-600"> Somente contraindo dívidas
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Condicao_Pagar_Emergencia" value="Nao" class="text-brand-600"> Não teria condições
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-800">2. Antes desta apresentação, você conhecia as regras de carência da ANS e planos ambulatoriais de menor custo?</label>
+                            <div class="grid sm:grid-cols-3 gap-2 text-xs">
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Conhecimento_Previo_ANS" value="Sim" required class="text-brand-600"> Conhecia bem
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Conhecimento_Previo_ANS" value="Superficial" class="text-brand-600"> Conhecia muito pouco
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Conhecimento_Previo_ANS" value="Nao" class="text-brand-600"> Desconhecia totalmente
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloco: Avaliação de Impacto (Depois) -->
+                    <div class="space-y-4 pt-4 border-t border-slate-200">
+                        <span class="inline-block px-3 py-1 rounded-lg bg-accent-100 text-accent-800 text-xs font-bold uppercase tracking-wider">
+                            Fase 2: Impacto da Plataforma e Oficina
+                        </span>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-800">3. O Simulador de Imprevistos e o Checklist alteraram sua percepção sobre a necessidade de planejar gastos em saúde?</label>
+                            <div class="grid sm:grid-cols-3 gap-2 text-xs">
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Mudanca_Percepcao_Gastos" value="Muito" required class="text-brand-600"> Sim, gerou alerta real
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Mudanca_Percepcao_Gastos" value="Pouco" class="text-brand-600"> Alterou parcialmente
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Mudanca_Percepcao_Gastos" value="Nao" class="text-brand-600"> Não alterou
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-800">4. Você consideraria priorizar uma modalidade acessível (ambulatorial ou com coparticipação) no seu orçamento futuro?</label>
+                            <div class="grid sm:grid-cols-3 gap-2 text-xs">
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Intencao_Priorizar_Plano" value="Sim" required class="text-brand-600"> Sim, tornou-se meta
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Intencao_Priorizar_Plano" value="Talvez" class="text-brand-600"> Talvez, se houver margem
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Intencao_Priorizar_Plano" value="Nao" class="text-brand-600"> No momento não
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-800">5. Como você avalia a usabilidade e clareza deste sistema web de ADS?</label>
+                            <div class="grid sm:grid-cols-4 gap-2 text-xs">
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Avaliacao_Plataforma" value="Excelente" required class="text-brand-600"> Excelente
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Avaliacao_Plataforma" value="Boa" class="text-brand-600"> Boa
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Avaliacao_Plataforma" value="Regular" class="text-brand-600"> Regular
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                    <input type="radio" name="Avaliacao_Plataforma" value="Ruim" class="text-brand-600"> Confusa
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full py-4 bg-brand-700 hover:bg-brand-800 text-white font-bold rounded-2xl shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Respostas da Avaliação
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-brand-900 text-slate-300 py-12 border-t border-brand-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid md:grid-cols-12 gap-8">
+                <div class="md:col-span-6 space-y-3">
+                    <div class="flex items-center gap-2 text-white font-bold text-base">
+                        <i class="fa-solid fa-heart-pulse text-accent-500"></i>
+                        <span>SaúdePlanejada</span>
+                    </div>
+                    <p class="text-slate-400 max-w-md leading-relaxed">
+                        Aplicação desenvolvida como intervenção do <strong>Projeto de Extensão Universitária</strong> do curso de Análise e Desenvolvimento de Sistemas (ADS).
+                    </p>
+                    <p class="text-slate-500">
+                        Vínculo institucional com os Objetivos de Desenvolvimento Sustentável (ODS 3 - Saúde e Bem-Estar) da Agenda 2030 das Nações Unidas.
+                    </p>
+                </div>
+
+                <div class="md:col-span-6 space-y-3 md:text-right">
+                    <span class="font-bold text-white uppercase tracking-wider block">Aviso Institucional</span>
+                    <p class="text-slate-400 max-w-md md:ml-auto leading-relaxed">
+                        Plataforma de caráter estritamente socioeducativo e extensionista, sem fins lucrativos ou vínculos com corretoras comerciais. Os dados regulatórios baseiam-se na Lei nº 9.656/1998 e resoluções normativas da ANS.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-brand-800/80 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-2">
+                <span>© 2026 Projeto de Extensão ADS. Todos os direitos reservados.</span>
+                <span>Foco Comunitário • Letramento em Saúde • ADS</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT DINÂMICO ================= -->
+    <script>
+        // ------------------ 1. BASE DE DADOS DOS MÓDULOS ------------------
+        const SALARIO_MINIMO = 1621.00;
+
+        // Procedimentos para o Simulador de Impacto Financeiro
+        const procedimentos = [
+            {
+                id: 'consulta_exames',
+                nome: 'Consulta com Especialista + Exames de Imagem (Ressonância/Tomografia)',
+                categoria: 'Ambulatorial / Diagnóstico',
+                custo: 1850.00,
+                descricao: 'Investigação inicial particular sem convênio (consulta de especialista + exames complexos).'
+            },
+            {
+                id: 'apendicite',
+                nome: 'Cirurgia de Apendicectomia de Urgência + 2 diárias de internação',
+                categoria: 'Cirúrgico Urgente',
+                custo: 14200.00,
+                descricao: 'Taxas hospitalares, honorários da equipe cirúrgica, anestesia e enfermaria particular.'
+            },
+            {
+                id: 'uti',
+                nome: '3 Diárias em Unidade de Terapia Intensiva (UTI) Particular',
+                categoria: 'Alta Complexidade',
+                custo: 22500.00,
+                descricao: 'Diárias de suporte avançado à vida, respiradores e monitoramento intensivo.'
+            },
+            {
+                id: 'ortopedia',
+                nome: 'Cirurgia Ortopédica (Fratura com colocação de placa/parafusos)',
+                categoria: 'Cirúrgico / Prótese',
+                custo: 18900.00,
+                descricao: 'Procedimento cirúrgico, insumos de síntese óssea (OPME) e recuperação.'
+            },
+            {
+                id: 'parto_urgencia',
+                nome: 'Parto Cesárea Particular de Urgência + Diária neonatal',
+                categoria: 'Obstetrícia',
+                custo: 13500.00,
+                descricao: 'Equipe médica obstétrica, pediatra em sala de parto e alojamento conjunto.'
+            }
+        ];
+
+        // Termos para o Glossário da ANS
+        const termosGlossario = [
+            {
+                termo: 'Coparticipação',
+                tag: 'Financeiro',
+                significado: 'Valor pago à parte pelo beneficiário apenas quando ele utiliza um serviço (consulta ou exame). Em troca, a mensalidade fixa costuma ser até 30% a 40% menor.'
+            },
+            {
+                termo: 'Carência',
+                tag: 'Prazos',
+                significado: 'Período legal previsto no contrato durante o qual o usuário paga a mensalidade, mas ainda não pode utilizar determinados procedimentos estabelecidos.'
+            },
+            {
+                termo: 'Rol da ANS',
+                tag: 'Coberturas',
+                significado: 'Lista oficial obrigatória de consultas, exames, cirurgias e tratamentos que todas as operadoras de saúde são obrigadas por lei a cobrir.'
+            },
+            {
+                termo: 'Plano Ambulatorial',
+                tag: 'Modalidade',
+                significado: 'Cobre consultas médicas em clínicas, exames laboratoriais e tratamentos sem internação hospitalar. Costuma ser o modelo mais econômico.'
+            },
+            {
+                termo: 'Plano Hospitalar',
+                tag: 'Modalidade',
+                significado: 'Garante internações hospitalares ilimitadas e cirurgias, além de atendimentos de emergência durante o período em que o paciente estiver internado.'
+            },
+            {
+                termo: 'DLP (Doenças Preexistentes)',
+                tag: 'Regulação',
+                significado: 'Doenças ou lesões que o consumidor já sabia possuir no momento em que assinou o contrato do plano de saúde.'
+            },
+            {
+                termo: 'CPT (Cobertura Parcial Temporária)',
+                tag: 'Regulação',
+                significado: 'Restrição temporária (máximo de 24 meses) na cobertura de cirurgias ou leitos de alta tecnologia exclusivamente relacionados a doenças preexistentes declaradas.'
+            },
+            {
+                termo: 'Reajuste por Faixa Etária',
+                tag: 'Contratual',
+                significado: 'Aumento legal de preço que ocorre quando o beneficiário atinge determinadas idades previstas pela ANS (ex: 19, 24, 29... até 59 anos).'
+            }
+        ];
+
+        // ------------------ 2. INICIALIZAÇÃO DO SIMULADOR ------------------
+        const containerProcedimentos = document.getElementById('procedimentos-container');
+        const totalSimuladorEl = document.getElementById('simulador-total');
+        const salariosSimuladorEl = document.getElementById('simulador-salarios');
+        const alertaSimuladorEl = document.getElementById('simulador-alerta');
+        const btnLimparSimulador = document.getElementById('btn-limpar-simulador');
+
+        function renderizarProcedimentos() {
+            containerProcedimentos.innerHTML = procedimentos.map(item => `
+                <label class="flex items-start gap-3.5 p-3.5 rounded-2xl border border-slate-200 hover:border-brand-300 hover:bg-slate-50 transition cursor-pointer">
+                    <input type="checkbox" data-id="${item.id}" value="${item.custo}" class="check-procedimento mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-sm font-semibold text-slate-800">${item.nome}</span>
+                            <span class="text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200 shrink-0">
+                                R$ ${item.custo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">${item.descricao}</p>
+                    </div>
+                </label>
+            `).join('');
+
+            // Event Listeners dos checkboxes
+            document.querySelectorAll('.check-procedimento').forEach(check => {
+                check.addEventListener('change', calcularSimulador);
+            });
+        }
+
+        function calcularSimulador() {
+            const checks = document.querySelectorAll('.check-procedimento:checked');
+            let total = 0;
+            checks.forEach(c => total += parseFloat(c.value));
+
+            totalSimuladorEl.textContent = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            const qtdSalarios = (total / SALARIO_MINIMO).toFixed(1);
+            salariosSimuladorEl.textContent = `Equivale a aproximadamente ${qtdSalarios} salários mínimos`;
+
+            if (total === 0) {
+                alertaSimuladorEl.innerHTML = `Selecione um ou mais itens ao lado para visualizar como uma única emergência pode impactar o patrimônio familiar.`;
+            } else if (total < 10000) {
+                alertaSimuladorEl.innerHTML = `<span class="text-amber-300 font-bold">Risco Moderado:</span> O montante de <strong>R$ ${total.toLocaleString('pt-BR')}</strong> costuma drenar a reserva de emergência familiar de vários meses de trabalho.`;
+            } else {
+                alertaSimuladorEl.innerHTML = `<span class="text-red-300 font-bold">Alto Risco de Gasto Catastrófico:</span> Um desembolso de <strong>R$ ${total.toLocaleString('pt-BR')}</strong> supera o fôlego da maioria das famílias de classe média-baixa, exigindo empréstimos caros ou alienação de bens caso não haja suporte do SUS ou de plano suplementar.`;
+            }
+        }
+
+        btnLimparSimulador.addEventListener('click', () => {
+            document.querySelectorAll('.check-procedimento').forEach(c => c.checked = false);
+            calcularSimulador();
+        });
+
+        // ------------------ 3. CHECKLIST DINÂMICO PRÉ-CONTRATO ------------------
+        const filtroCobertura = document.getElementById('filtro-cobertura');
+        const filtroAbrangencia = document.getElementById('filtro-abrangencia');
+        const filtroCoparticipacao = document.getElementById('filtro-coparticipacao');
+        const checkPreexistente = document.getElementById('check-preexistente');
+        const checkGravidez = document.getElementById('check-gravidez');
+        const btnGerarChecklist = document.getElementById('btn-gerar-checklist');
+        const btnCopiarChecklist = document.getElementById('btn-copiar-checklist');
+
+        const resTipoPlano = document.getElementById('res-tipo-plano');
+        const listaCarencias = document.getElementById('lista-carencias');
+        const listaClausulas = document.getElementById('lista-clausulas');
+
+        function atualizarChecklist() {
+            const cob = filtroCobertura.value;
+            const abr = filtroAbrangencia.value;
+            const cop = filtroCoparticipacao.value;
+            const pre = checkPreexistente.checked;
+            const gra = checkGravidez.checked;
+
+            // Define título recomendado
+            let titulo = '';
+            if (cob === 'ambulatorial') titulo = 'Plano Ambulatorial';
+            if (cob === 'hospitalar_sem_obs') titulo = 'Plano Hospitalar sem Obstetrícia';
+            if (cob === 'hospitalar_com_obs') titulo = 'Plano Referência / Hospitalar com Obstetrícia';
+
+            if (abr === 'municipal') titulo += ' (Abrangência Municipal)';
+            if (abr === 'estadual') titulo += ' (Abrangência Estadual)';
+            if (abr === 'nacional') titulo += ' (Abrangência Nacional)';
+
+            if (cop === 'com_copart') titulo += ' • Com Coparticipação';
+            resTipoPlano.textContent = titulo;
+
+            // Carências aplicáveis
+            let carencias = [
+                { evento: 'Urgência e Emergência', tempo: '24 horas' },
+                { evento: 'Consultas Médicas e Exames Simples', tempo: '30 a 180 dias (conforme contrato)' },
+                { evento: 'Internações e Cirurgias Eletivas', tempo: cob === 'ambulatorial' ? 'Não coberto neste plano' : '180 dias' }
+            ];
+
+            if (cob === 'hospitalar_com_obs' || gra) {
+                carencias.push({ evento: 'Partos a termo', tempo: '300 dias' });
+            }
+
+            if (pre) {
+                carencias.push({ evento: 'Doenças Preexistentes (CPT)', tempo: 'Até 24 meses (apenas alta complexidade do agravo)' });
+            }
+
+            listaCarencias.innerHTML = carencias.map(c => `
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    <span class="block font-semibold text-slate-700">${c.evento}</span>
+                    <span class="text-brand-700 font-bold">${c.tempo}</span>
+                </div>
+            `).join('');
+
+            // Cláusulas e Dicas
+            let clausulas = [
+                'Verifique no contrato se o hospital e os laboratórios de confiança próximos da sua residência estão credenciados na rede ativa.',
+                'Exija a lista expressa de procedimentos cobertos e confirme se segue integralmente o <strong>Rol de Procedimentos da ANS</strong>.'
+            ];
+
+            if (cop === 'com_copart') {
+                clausulas.push('<strong>Atenção à Coparticipação:</strong> Confira se há teto máximo mensal ou percentual fixo por consulta para não ter surpresas na fatura ao utilizar exames.');
+            } else {
+                clausulas.push('<strong>Modalidade Sem Coparticipação:</strong> Confirme se o valor da mensalidade é viável para o orçamento familiar mesmo em meses em que ninguém consultar.');
+            }
+
+            if (abr === 'municipal') {
+                clausulas.push('<strong>Abrangência Municipal:</strong> Este plano atende apenas na cidade/região acordada. Casos de urgência fora dela dependerão do SUS.');
+            }
+
+            if (pre) {
+                clausulas.push('<strong>Declaração de Saúde:</strong> Declare todas as condições de saúde com honestidade na contratação para evitar alegação de fraude ou cancelamento unilateral.');
+            }
+
+            listaClausulas.innerHTML = clausulas.map(item => `
+                <li class="flex items-start gap-2.5">
+                    <i class="fa-solid fa-check text-accent-600 mt-1 shrink-0 text-xs"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+        }
+
+        btnGerarChecklist.addEventListener('click', atualizarChecklist);
+
+        // Copiar Checklist para Clipboard
+        btnCopiarChecklist.addEventListener('click', () => {
+            const texto = `CHECKLIST PRÉ-CONTRATO ANS:\nTipo Recomendado: ${resTipoPlano.textContent}\nConsulte sempre as carências e cláusulas do Rol da ANS.`;
+            const tempInput = document.createElement("textarea");
+            tempInput.value = texto;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                const originalHtml = btnCopiarChecklist.innerHTML;
+                btnCopiarChecklist.innerHTML = `<i class="fa-solid fa-check"></i> Copiado!`;
+                setTimeout(() => btnCopiarChecklist.innerHTML = originalHtml, 2000);
+            } catch (err) {
+                console.error('Falha ao copiar:', err);
+            }
+            document.body.removeChild(tempInput);
+        });
+
+        // ------------------ 4. GLOSSÁRIO DINÂMICO ------------------
+        const gridGlossario = document.getElementById('grid-glossario');
+        const inputBusca = document.getElementById('input-busca-glossario');
+        const glossarioVazio = document.getElementById('glossario-vazio');
+
+        function renderizarGlossario(filtro = '') {
+            const termoFiltrado = filtro.toLowerCase().trim();
+            const itens = termosGlossario.filter(item => 
+                item.termo.toLowerCase().includes(termoFiltrado) || 
+                item.significado.toLowerCase().includes(termoFiltrado) ||
+                item.tag.toLowerCase().includes(termoFiltrado)
+            );
+
+            if (itens.length === 0) {
+                gridGlossario.innerHTML = '';
+                glossarioVazio.classList.remove('hidden');
+                return;
+            }
+
+            glossarioVazio.classList.add('hidden');
+            gridGlossario.innerHTML = itens.map(item => `
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-accent-700 bg-accent-50 px-2 py-0.5 rounded border border-accent-200">${item.tag}</span>
+                        </div>
+                        <h4 class="font-bold text-brand-900 text-base mb-2">${item.termo}</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">${item.significado}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        inputBusca.addEventListener('input', (e) => {
+            renderizarGlossario(e.target.value);
+        });
+
+        // ------------------ 5. MENU MOBILE & NAVEGAÇÃO ------------------
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // ------------------ INICIALIZAÇÃO AO CARREGAR ------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            renderizarProcedimentos();
+            calcularSimulador();
+            atualizarChecklist();
+            renderizarGlossario();
+        });
+    </script>
+</body>
+</html>
