@@ -14,7 +14,7 @@ A solução traduz normativas complexas da Agência Nacional de Saúde Suplement
 ## 🛠️ Tecnologias e Ferramentas
 
 *   **Front-end:** HTML5, CSS3, JavaScript (ES6+).
-*   **IA & Lógica de Negócios:** Aplicação de Inteligência Artificial Generativa (Google Gemini) e engenharia de prompt para mapeamento estruturado das regras de negócio (resoluções da ANS) e aceleração da codificação das lógicas do simulador.
+*   **IA & Lógica de Negócios:** Aplicação de Inteligência Artificial Generativa e engenharia de prompt para mapeamento estruturado das regras de negócio (resoluções da ANS) e aceleração da codificação das lógicas do simulador.
 *   **Versionamento e Deploy:** Git, GitHub, GitHub Pages.
 
 ## 🌐 Acesso ao Projeto
